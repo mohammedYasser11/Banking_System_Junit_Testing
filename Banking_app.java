@@ -49,6 +49,18 @@ class BankAccount {
         transactions.add(new Transaction("Loan", amount));
         loans.add(new Loan(accountNumber, amount));
     }
+
+    public void transfer(BankAccount destinationAccount, double amount) {
+        if (balance >= amount) {
+            balance -= amount;
+            destinationAccount.deposit(amount);
+            transactions.add(new Transaction("Transfer to " + destinationAccount.getAccountNumber(), -amount));
+            destinationAccount.getTransactions().add(new Transaction("Transfer from " + accountNumber, amount));
+            System.out.println("Transfer successful");
+        } else {
+            System.out.println("Insufficient funds for transfer");
+        }
+    }
 }
 
 class Transaction {
@@ -142,5 +154,12 @@ public class Main {
         for (Loan loan : loans) {
             System.out.println("Amount: " + loan.getAmount());
         }
+        
+        BankAccount acc3 = new BankAccount("67890", 200);
+        bank.addAccount(acc3);
+
+        foundAccount.transfer(acc3, 300);
+        System.out.println("Account balance after transfer: " + foundAccount.getBalance());
+        System.out.println("Destination account balance after transfer: " + acc3.getBalance());
     }
 }
