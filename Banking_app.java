@@ -11,7 +11,7 @@ class BankAccount {
     private double totalLoanAmount;
     private List<Transaction> transactions;
     private List<Loan> loans;
-    private Bank bank; // Reference to the bank
+    private Bank bank; 
 
     public BankAccount(String accountNumber, double balance, Bank bank) {
         this.accountNumber = accountNumber;
@@ -62,7 +62,6 @@ class BankAccount {
             transactions.add(new Transaction("Loan", amount));
             loans.add(new Loan(accountNumber, amount));
             totalLoanAmount += amount;
-            // Update allLoans in Bank
             bank.updateAllLoans(accountNumber, loans);
         } else {
             System.out.println("Loan amount exceeds the limit");
@@ -144,7 +143,7 @@ class Loan {
 
 class Bank {
     private List<BankAccount> accounts;
-    private Map<String, List<Loan>> allLoans; // Map to store loans for each account
+    private Map<String, List<Loan>> allLoans; 
 
     public Bank() {
         accounts = new ArrayList<>();
@@ -173,7 +172,6 @@ class Bank {
         }
     }
 
-    // Method to update allLoans map when a loan is repaid
     public void updateAllLoans(String accountNumber, List<Loan> updatedLoans) {
         allLoans.put(accountNumber, updatedLoans);
     }
