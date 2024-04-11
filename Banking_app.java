@@ -5,11 +5,13 @@ class BankAccount {
     private String accountNumber;
     private double balance;
     private List<Transaction> transactions;
+    private List<Loan> loans;
 
     public BankAccount(String accountNumber, double balance) {
         this.accountNumber = accountNumber;
         this.balance = balance;
         this.transactions = new ArrayList<>();
+        this.loans = new ArrayList<>();
     }
 
     public String getAccountNumber() {
@@ -22,6 +24,10 @@ class BankAccount {
 
     public List<Transaction> getTransactions() {
         return transactions;
+    }
+
+    public List<Loan> getLoans() {
+        return loans;
     }
 
     public void deposit(double amount) {
@@ -41,6 +47,7 @@ class BankAccount {
     public void addLoan(double amount) {
         balance += amount;
         transactions.add(new Transaction("Loan", amount));
+        loans.add(new Loan(accountNumber, amount));
     }
 }
 
@@ -82,11 +89,9 @@ class Loan {
 
 class Bank {
     private List<BankAccount> accounts;
-    private List<Loan> loans;
 
     public Bank() {
         accounts = new ArrayList<>();
-        loans = new ArrayList<>();
     }
 
     public void addAccount(BankAccount account) {
@@ -106,14 +111,9 @@ class Bank {
         BankAccount account = findAccount(accountNumber);
         if (account != null) {
             account.addLoan(amount);
-            loans.add(new Loan(accountNumber, amount));
         } else {
             System.out.println("Account not found");
         }
-    }
-
-    public List<Loan> getLoans() {
-        return loans;
     }
 }
 
@@ -124,6 +124,7 @@ public class Main {
         BankAccount acc2 = new BankAccount("54321", 500);
         bank.addAccount(acc1);
         bank.addAccount(acc2);
+        
         BankAccount foundAccount = bank.findAccount("12345");
         if (foundAccount != null) {
             foundAccount.deposit(500);
@@ -132,13 +133,14 @@ public class Main {
         } else {
             System.out.println("Account not found");
         }
+        
         bank.issueLoan("54321", 1000);
         System.out.println("Account balance after loan: " + acc2.getBalance());
 
-        List<Loan> loans = bank.getLoans();
-        System.out.println("Loans:");
+        List<Loan> loans = acc2.getLoans();
+        System.out.println("Loans for account 54321:");
         for (Loan loan : loans) {
-            System.out.println("Account Number: " + loan.getAccountNumber() + ", Amount: " + loan.getAmount());
+            System.out.println("Amount: " + loan.getAmount());
         }
     }
 }
