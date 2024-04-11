@@ -62,11 +62,31 @@ class Transaction {
     }
 }
 
+class Loan {
+    private String accountNumber;
+    private double amount;
+
+    public Loan(String accountNumber, double amount) {
+        this.accountNumber = accountNumber;
+        this.amount = amount;
+    }
+
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+}
+
 class Bank {
     private List<BankAccount> accounts;
+    private List<Loan> loans;
 
     public Bank() {
         accounts = new ArrayList<>();
+        loans = new ArrayList<>();
     }
 
     public void addAccount(BankAccount account) {
@@ -86,9 +106,14 @@ class Bank {
         BankAccount account = findAccount(accountNumber);
         if (account != null) {
             account.addLoan(amount);
+            loans.add(new Loan(accountNumber, amount));
         } else {
             System.out.println("Account not found");
         }
+    }
+
+    public List<Loan> getLoans() {
+        return loans;
     }
 }
 
@@ -109,5 +134,11 @@ public class Main {
         }
         bank.issueLoan("54321", 1000);
         System.out.println("Account balance after loan: " + acc2.getBalance());
+
+        List<Loan> loans = bank.getLoans();
+        System.out.println("Loans:");
+        for (Loan loan : loans) {
+            System.out.println("Account Number: " + loan.getAccountNumber() + ", Amount: " + loan.getAmount());
+        }
     }
 }
