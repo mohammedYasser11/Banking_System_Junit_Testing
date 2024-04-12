@@ -112,8 +112,10 @@ class BankAccount {
     }
 
     void setTotalLoanAmount(double d) {
-       this.totalLoanAmount=d;
+        this.totalLoanAmount=d;
     }
+
+    
 }
 
 class Transaction {
@@ -202,6 +204,12 @@ class Bank {
         if (account != null && amount >= 0) {
             Loan loan = new Loan(accountNumber, amount);
             account.getLoans().add(loan);
+
+            // Update allLoans map
+            List<Loan> accountLoans = allLoans.getOrDefault(accountNumber, new ArrayList<>());
+            accountLoans.add(loan);
+            allLoans.put(accountNumber, accountLoans);
+
             account.setTotalLoanAmount(account.getTotalLoanAmount() + amount);
             System.out.println("Loan issued successfully.");
         } else {
@@ -223,6 +231,9 @@ class Bank {
             System.out.println("Invalid loan repayment.");
         }
     }
+
+
+ 
 
     public Map<String, List<Loan>> getAllLoans() {
         return allLoans;
