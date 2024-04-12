@@ -214,7 +214,7 @@ class Bank {
         if (account != null && amount >= 0) {
             double totalLoanAmount = account.getTotalLoanAmount();
             if (amount <= totalLoanAmount) {
-                account.setTotalLoanAmount(totalLoanAmount - amount);
+                account.payLoan(amount);
                 System.out.println("Loan repayment successful.");
             } else {
                 System.out.println("Invalid loan repayment amount.");
