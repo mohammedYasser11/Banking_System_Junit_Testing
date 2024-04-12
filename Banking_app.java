@@ -151,7 +151,12 @@ class Bank {
     }
 
     public void addAccount(BankAccount account) {
-        accounts.add(account);
+        if (!isAccountNumberTaken(account.getAccountNumber())) {
+            accounts.add(account);
+            System.out.println("Account added successfully.");
+        } else {
+            System.out.println("Account number is already taken.");
+        }
     }
 
     public BankAccount findAccount(String accountNumber) {
@@ -161,6 +166,10 @@ class Bank {
             }
         }
         return null;
+    }
+
+    public boolean isAccountNumberTaken(String accountNumber) {
+        return findAccount(accountNumber) != null;
     }
 
     public void issueLoan(String accountNumber, double amount) {
