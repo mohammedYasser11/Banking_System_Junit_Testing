@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -7,14 +6,16 @@ import java.util.Map;
 class BankAccount {
     private static final double MAX_LOAN_AMOUNT = 100000;
     private String accountNumber;
+    private String password;
     private double balance;
     private double totalLoanAmount;
     private List<Transaction> transactions;
     private List<Loan> loans;
-    private Bank bank; 
+    private Bank bank;
 
-    public BankAccount(String accountNumber, double balance, Bank bank) {
+    public BankAccount(String accountNumber, String password, double balance, Bank bank) {
         this.accountNumber = accountNumber;
+        this.password = password;
         this.balance = balance;
         this.totalLoanAmount = 0;
         this.transactions = new ArrayList<>();
@@ -24,6 +25,10 @@ class BankAccount {
 
     public String getAccountNumber() {
         return accountNumber;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public double getBalance() {
@@ -43,65 +48,71 @@ class BankAccount {
     }
 
     public void deposit(double amount) {
-        balance += amount;
-        transactions.add(new Transaction("Deposit", amount));
-    }
-
-    public void withdraw(double amount) {
-        if (balance >= amount) {
-            balance -= amount;
-            transactions.add(new Transaction("Withdrawal", -amount));
+        if (amount >= 0) {
+            balance += amount;
+            transactions.add(new Transaction("Deposit", amount));
         } else {
-            System.out.println("Insufficient funds");
+            System.out.println("Invalid deposit amount");
         }
     }
 
-    public void addLoan(double amount) {
-        if (totalLoanAmount + amount <= MAX_LOAN_AMOUNT) {
-            balance += amount;
-            transactions.add(new Transaction("Loan", amount));
-            loans.add(new Loan(accountNumber, amount));
-            totalLoanAmount += amount;
-            bank.updateAllLoans(accountNumber, loans);
+    public void withdraw(double amount) {
+        if (amount >= 0) {
+            if (balance >= amount) {
+                balance -= amount;
+                transactions.add(new Transaction("Withdrawal", -amount));
+            } else {
+                System.out.println("Insufficient funds");
+            }
         } else {
-            System.out.println("Loan amount exceeds the limit");
+            System.out.println("Invalid withdrawal amount");
+        }
+    }
+
+    public void requestLoan(double amount) {
+        if (amount >= 0) {
+            bank.issueLoan(accountNumber, amount);
+        } else {
+            System.out.println("Invalid loan amount");
         }
     }
 
     public void payLoan(double amount) {
-        if(balance>=amount){
-            if (amount <= totalLoanAmount) {
-                balance -= amount;
-                transactions.add(new Transaction("Loan Repayment", -amount));
-                totalLoanAmount -= amount;
-                System.out.println("Loan repayment successful");
-                loans.clear();
-                 loans.add(new Loan(accountNumber, totalLoanAmount));
-                bank.updateAllLoans(accountNumber, loans);
+        if (amount >= 0) {
+            if (balance >= amount) {
+                if (amount <= totalLoanAmount) {
+                    balance -= amount;
+                    transactions.add(new Transaction("Loan Repayment", -amount));
+                    totalLoanAmount -= amount;
+                    System.out.println("Loan repayment successful");
+                } else {
+                    balance -= totalLoanAmount;
+                    transactions.add(new Transaction("Loan Repayment", -totalLoanAmount));
+                    totalLoanAmount = 0;
+                    System.out.println("Loan repayment successful");
+                }
             } else {
-                balance -= totalLoanAmount;
-                transactions.add(new Transaction("Loan Repayment", -totalLoanAmount));
-                totalLoanAmount =0;
-                System.out.println("Loan repayment successful");
-                loans.clear();
-                 loans.add(new Loan(accountNumber, totalLoanAmount));
-                bank.updateAllLoans(accountNumber, loans);
+                System.out.println("Your account balance is low!");
             }
-        }else {
-            System.out.println("Your account balance is low! " );
+        } else {
+            System.out.println("Invalid loan repayment amount");
         }
     }
 
-    public void transfer(BankAccount destinationAccount, double amount) {
-        if (balance >= amount) {
-            balance -= amount;
-            destinationAccount.deposit(amount);
-            transactions.add(new Transaction("Transfer to " + destinationAccount.getAccountNumber(), -amount));
-            destinationAccount.getTransactions().add(new Transaction("Transfer from " + accountNumber, amount));
-            System.out.println("Transfer successful");
+    public void transfer(String destinationAccount, double amount) {
+        if (amount >= 0) {
+            if (balance >= amount) {
+                bank.transfer(destinationAccount, amount);
+            } else {
+                System.out.println("Insufficient funds for transfer");
+            }
         } else {
-            System.out.println("Insufficient funds for transfer");
+            System.out.println("Invalid transfer amount");
         }
+    }
+
+    void setTotalLoanAmount(double d) {
+       this.totalLoanAmount=d;
     }
 }
 
@@ -139,15 +150,29 @@ class Loan {
     public double getAmount() {
         return amount;
     }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
 }
 
 class Bank {
     private List<BankAccount> accounts;
-    private Map<String, List<Loan>> allLoans; 
+    private Map<String, List<Loan>> allLoans;
 
     public Bank() {
         accounts = new ArrayList<>();
         allLoans = new HashMap<>();
+    }
+
+    public void transfer(String account, double amount) {
+        BankAccount find = findAccount(account);
+        if (find != null) {
+            find.deposit(amount);
+            System.out.println("Transfer successful");
+        } else {
+            System.out.println("Wrong account number");
+        }
     }
 
     public void addAccount(BankAccount account) {
@@ -174,15 +199,29 @@ class Bank {
 
     public void issueLoan(String accountNumber, double amount) {
         BankAccount account = findAccount(accountNumber);
-        if (account != null) {
-            account.addLoan(amount);
+        if (account != null && amount >= 0) {
+            Loan loan = new Loan(accountNumber, amount);
+            account.getLoans().add(loan);
+            account.setTotalLoanAmount(account.getTotalLoanAmount() + amount);
+            System.out.println("Loan issued successfully.");
         } else {
-            System.out.println("Account not found");
+            System.out.println("Invalid loan issuance.");
         }
     }
 
-    public void updateAllLoans(String accountNumber, List<Loan> updatedLoans) {
-        allLoans.put(accountNumber, updatedLoans);
+    public void payLoan(String accountNumber, double amount) {
+        BankAccount account = findAccount(accountNumber);
+        if (account != null && amount >= 0) {
+            double totalLoanAmount = account.getTotalLoanAmount();
+            if (amount <= totalLoanAmount) {
+                account.setTotalLoanAmount(totalLoanAmount - amount);
+                System.out.println("Loan repayment successful.");
+            } else {
+                System.out.println("Invalid loan repayment amount.");
+            }
+        } else {
+            System.out.println("Invalid loan repayment.");
+        }
     }
 
     public Map<String, List<Loan>> getAllLoans() {
@@ -193,13 +232,23 @@ class Bank {
 public class Main {
     public static void main(String[] args) {
         Bank bank = new Bank();
-        BankAccount acc1 = new BankAccount("12345", 1000, bank);
-        BankAccount acc2 = new BankAccount("54321", 500, bank);
-        bank.addAccount(acc1);
-        bank.addAccount(acc2);
 
-        bank.issueLoan("54321", 1000);
+        // Create and add bank accounts
+        BankAccount account1 = new BankAccount("12", "password1", 1000, bank);
+        BankAccount account2 = new BankAccount("13", "password2", 2000, bank);
+        bank.addAccount(account1);
+        bank.addAccount(account2);
 
+        // Make transactions
+        account1.deposit(500);
+        account1.withdraw(200);
+        account2.transfer("12", 300);
+
+        // Request and pay loans
+        account1.requestLoan(500);
+        account1.payLoan(300);
+
+        // Display all loans
         Map<String, List<Loan>> allLoans = bank.getAllLoans();
         for (String accountNumber : allLoans.keySet()) {
             System.out.println("Loans for account " + accountNumber + ":");
@@ -207,17 +256,5 @@ public class Main {
                 System.out.println("Amount: " + loan.getAmount());
             }
         }
-
-        acc2.payLoan(100);
-
-        allLoans = bank.getAllLoans();
-        for (String accountNumber : allLoans.keySet()) {
-            System.out.println("Loans for account " + accountNumber + ":");
-            for (Loan loan : allLoans.get(accountNumber)) {
-                System.out.println("Amount: " + loan.getAmount());
-            }
-        }
     }
-
-} 
-
+}
