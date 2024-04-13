@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -164,10 +163,6 @@ class Bank {
     	return this.accounts;
     }
     
-    public Map<String, List<Loan>> allLoansGetter(){
-    	return this.allLoans;
-    }
-    
     public void addAccount(BankAccount account) {
         if (!isAccountNumberTaken(account.getAccountNumber())) {
             accounts.add(account);
@@ -225,7 +220,20 @@ class Bank {
     }
 
     public void updateAllLoans(String accountNumber, List<Loan> updatedLoans) {
+        double amount = 0;
+        for (Loan loan : updatedLoans) {
+            amount+=loan.getAmount();
+        }
+    	if(amount!=0)
         allLoans.put(accountNumber, updatedLoans);
+    	else {
+    	    for (Loan loan : getAllLoans().get(accountNumber)) {
+            if (loan.getAccountNumber().equals(accountNumber)) {
+    		allLoans.remove(accountNumber);
+    		
+            }
+        }
+    	}
     }
 
     public Map<String, List<Loan>> getAllLoans() {
@@ -235,14 +243,14 @@ class Bank {
 
 public class Main {
     public static void main(String[] args) {
-        Bank bank = new Bank();
+    	Bank bank = new Bank();
         BankAccount acc1 = new BankAccount("12345", 1000, bank);
         BankAccount acc2 = new BankAccount("54321", 500, bank);
         bank.addAccount(acc1);
         bank.addAccount(acc2);
 
-        bank.issueLoan("54321", 1000);
-
+        acc2.requestLoan(1000);
+        bank.LoanConfirmation(true,"54321");
         Map<String, List<Loan>> allLoans = bank.getAllLoans();
         for (String accountNumber : allLoans.keySet()) {
             System.out.println("Loans for account " + accountNumber + ":");
@@ -251,7 +259,7 @@ public class Main {
             }
         }
 
-        acc2.payLoan(100);
+        acc2.payLoan(1100);
 
         allLoans = bank.getAllLoans();
         for (String accountNumber : allLoans.keySet()) {
