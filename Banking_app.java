@@ -55,17 +55,21 @@ class BankAccount {
             System.out.println("Insufficient funds");
         }
     }
+    
+    public void requestLoan(double amount) {
+    	if(amount > 0)
+    		bank.issueLoan(accountNumber, amount);
+    	else {
+    		System.out.println("invalid amount");
+    	}
+    }
 
-    public void addLoan(double amount) {
-        if (totalLoanAmount + amount <= MAX_LOAN_AMOUNT) {
+    public void addLoan(double amount) {     
             balance += amount;
             transactions.add(new Transaction("Loan", amount));
             loans.add(new Loan(accountNumber, amount));
             totalLoanAmount += amount;
             bank.updateAllLoans(accountNumber, loans);
-        } else {
-            System.out.println("Loan amount exceeds the limit");
-        }
     }
 
     public void payLoan(double amount) {
@@ -144,12 +148,26 @@ class Loan {
 class Bank {
     private List<BankAccount> accounts;
     private Map<String, List<Loan>> allLoans; 
-
+    private List<Loan> waitingLoans;
+    
     public Bank() {
         accounts = new ArrayList<>();
+        waitingLoans = new ArrayList<>();
         allLoans = new HashMap<>();
     }
 
+    public List<Loan> waitingLoansGetter(){
+    	return this.waitingLoans;
+    }
+    
+    public List<BankAccount> accountsGetter(){
+    	return this.accounts;
+    }
+    
+    public Map<String, List<Loan>> allLoansGetter(){
+    	return this.allLoans;
+    }
+    
     public void addAccount(BankAccount account) {
         if (!isAccountNumberTaken(account.getAccountNumber())) {
             accounts.add(account);
@@ -167,18 +185,43 @@ class Bank {
         }
         return null;
     }
+    
+    public Loan findLoan(String accountNumber) {
+        for (Loan loan : waitingLoans) {
+            if (loan.getAccountNumber().equals(accountNumber)) {
+                return loan;
+            }
+        }
+        return null;
+    }
+
 
     public boolean isAccountNumberTaken(String accountNumber) {
         return findAccount(accountNumber) != null;
     }
 
     public void issueLoan(String accountNumber, double amount) {
-        BankAccount account = findAccount(accountNumber);
-        if (account != null) {
-            account.addLoan(amount);
-        } else {
-            System.out.println("Account not found");
-        }
+    	if(findLoan(accountNumber)!=null) {
+    		
+    		System.out.println("You have already requested a loan");
+    	}else {
+    		Loan loan = new Loan(accountNumber,amount);
+            waitingLoans.add(loan);
+            System.out.println("Loan is pending");
+    	}
+        	
+    }
+    
+    public void LoanConfirmation(boolean status, String accountNumber) {
+    	BankAccount find = findAccount(accountNumber);
+    	double amount = findLoan(accountNumber).getAmount();
+    	
+    	if(status) {
+    		find.addLoan(amount);
+    	}else {
+    		System.out.println("Loan is rejected");
+    	}
+    	waitingLoans.remove(findLoan(accountNumber));
     }
 
     public void updateAllLoans(String accountNumber, List<Loan> updatedLoans) {
