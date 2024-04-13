@@ -106,7 +106,7 @@ class BankAccount {
     public void transfer(BankAccount destinationAccount, double amount) {
         if (balance >= amount) {
             balance -= amount;
-            destinationAccount.deposit(amount);
+            destinationAccount.balance+=amount;
             transactions.add(new Transaction("Transfer to " + destinationAccount.getAccountNumber(), -amount));
             destinationAccount.getTransactions().add(new Transaction("Transfer from " + accountNumber, amount));
             System.out.println("Transfer successful");
