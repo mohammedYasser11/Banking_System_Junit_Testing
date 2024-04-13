@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 class BankAccount {
-    private static final double MAX_LOAN_AMOUNT = 100000;
     private String accountNumber;
     private double balance;
     private double totalLoanAmount;
@@ -241,7 +240,7 @@ class Bank {
     }
 }
 
-public class Main {
+public class Banking_app {
     public static void main(String[] args) {
     	Bank bank = new Bank();
         BankAccount acc1 = new BankAccount("12345", 1000, bank);
