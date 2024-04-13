@@ -17,3 +17,4 @@ class Transaction {
         return amount;
     }
 }
+

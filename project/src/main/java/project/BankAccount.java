@@ -5,27 +5,36 @@ import java.util.List;
 
 class BankAccount {
     private String accountNumber;
+    private String password;
     private double balance;
     private double totalLoanAmount;
     private List<Transaction> transactions;
     private List<Loan> loans;
-    private Bank bank; 
+    private Bank bank;
 
-    public BankAccount(String accountNumber, double balance, Bank bank) {
+    public BankAccount(String accountNumber, String password, double balance, Bank bank) {
         this.accountNumber = accountNumber;
+        this.password = password;
         this.balance = balance;
         this.totalLoanAmount = 0;
         this.transactions = new ArrayList<>();
         this.loans = new ArrayList<>();
         this.bank = bank;
     }
-
     public String getAccountNumber() {
         return accountNumber;
     }
 
     public double getBalance() {
         return balance;
+    }
+    
+    public void setPassword(String password) {
+    	this.password = password;
+    }
+    
+    public String getPassword() {
+        return password;
     }
 
     public List<Transaction> getTransactions() {
