@@ -252,8 +252,8 @@ class Bank {
 public class Banking_app {
     public static void main(String[] args) {
     	Bank bank = new Bank();
-        BankAccount acc1 = new BankAccount("12345", 1000, bank);
-        BankAccount acc2 = new BankAccount("54321", 500, bank);
+        BankAccount acc1 = new BankAccount("12345","123", 1000, bank);
+        BankAccount acc2 = new BankAccount("54321","345", 500, bank);
         bank.addAccount(acc1);
         bank.addAccount(acc2);
 
