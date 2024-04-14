@@ -80,7 +80,7 @@ class BankAccount {
     }
 
     public void payLoan(double amount) {
-        if(balance>=amount){
+        if(balance>=amount && amount > 0){
             if (amount <= totalLoanAmount) {
                 balance -= amount;
                 transactions.add(new Transaction("Loan Repayment", -amount));
@@ -104,7 +104,7 @@ class BankAccount {
     }
 
     public void transfer(BankAccount destinationAccount, double amount) {
-        if (balance >= amount) {
+        if (balance >= amount && amount > 0) {
             balance -= amount;
             destinationAccount.deposit(amount);
             transactions.add(new Transaction("Transfer to " + destinationAccount.getAccountNumber(), -amount));
