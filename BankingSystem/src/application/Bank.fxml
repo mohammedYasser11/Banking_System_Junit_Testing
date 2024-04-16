@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.BankController">
+   <children>
+      <Label layoutX="218.0" layoutY="45.0" text="Welcome">
+         <font>
+            <Font name="System Bold Italic" size="38.0" />
+         </font>
+      </Label>
+      <Label fx:id="accountNumberLabel" layoutX="38.0" layoutY="203.0" text="Account Number">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <TextField fx:id="accountNumberField" layoutX="214.0" layoutY="205.0" prefHeight="25.0" prefWidth="223.0" />
+      <Button layoutX="272.0" layoutY="295.0" mnemonicParsing="false" onAction="#submitAccountNumber" text="Enter">
+         <font>
+            <Font name="Arial" size="15.0" />
+         </font>
+      </Button>
+      <Label fx:id="errorLabel" layoutX="189.0" layoutY="334.0" prefHeight="30.0" prefWidth="223.0" textFill="RED">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font></Label>
+      <Label fx:id="accountNumberLabel1" layoutX="72.0" layoutY="243.0" text="Password">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <TextField fx:id="passwordField" layoutX="214.0" layoutY="246.0" prefHeight="25.0" prefWidth="223.0" />
+   </children>
+</AnchorPane>

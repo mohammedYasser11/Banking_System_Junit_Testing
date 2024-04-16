@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.PayLoanController">
+   <children>
+      <Label layoutX="240.0" layoutY="34.0" prefHeight="39.0" prefWidth="121.0" text="Pay Loan">
+         <font>
+            <Font name="System Bold Italic" size="27.0" />
+         </font>
+      </Label>
+      <Label layoutX="47.0" layoutY="154.0" prefHeight="30.0" prefWidth="111.0" text="Total Loan">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label fx:id="totalLoanLabel" layoutX="185.0" layoutY="154.0" onDragDetected="#initialize" prefHeight="32.0" prefWidth="290.0">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="47.0" layoutY="207.0" prefHeight="32.0" prefWidth="90.0" text="Amount">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <TextField fx:id="loanPaymentField" layoutX="180.0" layoutY="211.0" prefHeight="25.0" prefWidth="242.0" />
+      <Button layoutX="276.0" layoutY="264.0" mnemonicParsing="false" onAction="#submitLoanPayment" text="Enter">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Button>
+      <Label fx:id="errorLabel" layoutX="158.0" layoutY="322.0" prefHeight="39.0" prefWidth="290.0" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <Button layoutX="521.0" layoutY="342.0" mnemonicParsing="false" onAction="#SwitchToDashboard" text="Back">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

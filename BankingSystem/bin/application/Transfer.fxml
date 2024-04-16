@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.TransferController">
+   <children>
+      <Label layoutX="241.0" layoutY="50.0" text="TRANSFER">
+         <font>
+            <Font name="System Bold Italic" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="43.0" layoutY="157.0" text="Bank account Number">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="106.0" layoutY="211.0" text="Amount">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <TextField fx:id="destinationAccountNumberField" layoutX="269.0" layoutY="160.0" prefHeight="25.0" prefWidth="243.0" />
+      <TextField fx:id="transferAmountField" layoutX="269.0" layoutY="214.0" prefHeight="25.0" prefWidth="243.0" />
+      <Label fx:id="errorLabel" layoutX="35.0" layoutY="307.0" prefHeight="77.0" prefWidth="489.0">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <Button layoutX="531.0" layoutY="345.0" mnemonicParsing="false" onAction="#SwitchToDashboard" text="Back">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <Button layoutX="263.0" layoutY="263.0" mnemonicParsing="false" onAction="#submitTransferAmount" text="Enter">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

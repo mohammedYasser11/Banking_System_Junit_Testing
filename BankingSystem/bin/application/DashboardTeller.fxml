@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.DashboardController">
+   <children>
+      <Label layoutX="223.0" layoutY="42.0" text="Dashboard">
+         <font>
+            <Font name="System Bold Italic" size="30.0" />
+         </font></Label>
+      <Button layoutX="231.0" layoutY="107.0" mnemonicParsing="false" onAction="#SwitchToWaitingLoan" prefHeight="44.0" prefWidth="138.0" text="Waiting Loans">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Button>
+      <Button layoutX="231.0" layoutY="178.0" mnemonicParsing="false" onAction="#SwitchToAccount" prefHeight="44.0" prefWidth="138.0" text="Accounts">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Button>
+      <Button layoutX="231.0" layoutY="252.0" mnemonicParsing="false" onAction="#SwitchToAddAcount" prefHeight="44.0" prefWidth="138.0" text="Add Account">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Button>
+      <Button layoutX="231.0" layoutY="315.0" mnemonicParsing="false" onAction="#SwitchToBankLoans" prefHeight="44.0" prefWidth="138.0" text="Loans">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Button>
+      <Button layoutX="484.0" layoutY="342.0" mnemonicParsing="false" onAction="#SwitchToAddMaint" prefHeight="32.0" prefWidth="75.0" text="Logout">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
