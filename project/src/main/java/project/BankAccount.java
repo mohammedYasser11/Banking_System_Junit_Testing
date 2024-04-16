@@ -50,8 +50,10 @@ class BankAccount {
     }
 
     public void deposit(double amount) {
-        balance += amount;
-        transactions.add(new Transaction("Deposit", amount));
+        if(amount > 0){
+            balance += amount;
+            transactions.add(new Transaction("Deposit", amount));
+        }
     }
 
     public void withdraw(double amount) {
