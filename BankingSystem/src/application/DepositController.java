@@ -36,7 +36,7 @@ public class DepositController {
                     return;
                 }
                 double amount = Double.parseDouble(depositAmount);
-                if (amount>=0) {
+                if (amount>0) {
                 	account.deposit(amount);
                 	errorLabel.setText("Deposit successfully");
                 	errorLabel.setStyle("-fx-text-fill: green; -fx-alignment: center;");
