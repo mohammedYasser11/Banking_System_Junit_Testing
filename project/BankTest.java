@@ -40,4 +40,10 @@ class BankTest {
 		Boolean x = b1.isAccountNumberTaken("1");
 		assertFalse(x);
 	}
+	@Test
+	@Order(6)
+	void testIssueLoan() {
+		List<Loan> waitingLoans = b1.waitingLoansGetter();
+		assertEquals(0,waitingLoans.size());
+	}
 }
