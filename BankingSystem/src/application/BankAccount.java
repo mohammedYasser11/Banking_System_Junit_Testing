@@ -46,12 +46,14 @@ class BankAccount {
     }
 
     public void deposit(double amount) {
-        balance += amount;
-        transactions.add(new Transaction("Deposit", amount));
+        if(amount > 0){
+            balance += amount;
+            transactions.add(new Transaction("Deposit", amount));
+        }
     }
 
     public void withdraw(double amount) {
-        if (balance >= amount) {
+        if (balance >= amount && amount > 0) {
             balance -= amount;
             transactions.add(new Transaction("Withdrawal", -amount));
         } else {
@@ -77,7 +79,7 @@ class BankAccount {
 
     public void payLoan(double amount) {
     	if (totalLoanAmount!=0) {
-    		if(balance>=amount){
+    		if(balance>=amount && amount > 0){
     		
             if (amount <= totalLoanAmount) {
                 balance -= amount;
@@ -97,7 +99,7 @@ class BankAccount {
                 bank.updateAllLoans(accountNumber, loans);
             }
         }else {
-            System.out.println("Your account balance is low! " );
+            System.out.println("Your account balance is low! \nor Your Entered amount is Invalid!" );
         }
     	}
     	else {
@@ -106,7 +108,7 @@ class BankAccount {
     }
 
     public void transfer(BankAccount destinationAccount, double amount) {
-        if (balance >= amount) {
+        if (balance >= amount && amount > 0) {
             balance -= amount;
             destinationAccount.balance+=amount;
             transactions.add(new Transaction("Transfer to " + destinationAccount.getAccountNumber(), -amount));
