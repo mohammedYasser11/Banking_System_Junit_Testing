@@ -82,6 +82,9 @@ class BankAccount {
     }
 
     public void payLoan(double amount) {
+        if(amount > totalLoanAmount)
+            amount = totalLoanAmount;
+        
         if(balance>=amount && amount > 0){
             if (amount <= totalLoanAmount) {
                 balance -= amount;
