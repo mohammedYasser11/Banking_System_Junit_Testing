@@ -82,24 +82,17 @@ class BankAccount {
     }
 
     public void payLoan(double amount) {
+        if(amount > totalLoanAmount)
+            amount = totalLoanAmount;
+        
         if(balance>=amount && amount > 0){
-            if (amount <= totalLoanAmount) {
-                balance -= amount;
-                transactions.add(new Transaction("Loan Repayment", -amount));
-                totalLoanAmount -= amount;
-                System.out.println("Loan repayment successful");
-                loans.clear();
-                 loans.add(new Loan(accountNumber, totalLoanAmount));
-                bank.updateAllLoans(accountNumber, loans);
-            } else {
-                balance -= totalLoanAmount;
-                transactions.add(new Transaction("Loan Repayment", -totalLoanAmount));
-                totalLoanAmount =0;
-                System.out.println("Loan repayment successful");
-                loans.clear();
-                 loans.add(new Loan(accountNumber, totalLoanAmount));
-                bank.updateAllLoans(accountNumber, loans);
-            }
+            balance -= amount;
+            transactions.add(new Transaction("Loan Repayment", -amount));
+            totalLoanAmount -= amount;
+            System.out.println("Loan repayment successful");
+            loans.clear();
+            loans.add(new Loan(accountNumber, totalLoanAmount));
+            bank.updateAllLoans(accountNumber, loans);                
         }else {
             System.out.println("Your account balance is low! " );
         }
