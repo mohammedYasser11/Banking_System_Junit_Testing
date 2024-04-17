@@ -93,7 +93,7 @@ class BankAccount {
             loans.clear();
             loans.add(new Loan(accountNumber, totalLoanAmount));
             bank.updateAllLoans(accountNumber, loans);                
-        else {
+        }else {
             System.out.println("Your account balance is low! " );
         }
     }
