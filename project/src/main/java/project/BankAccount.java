@@ -100,10 +100,10 @@ class BankAccount {
         }
     }
 
-    public void transfer(BankAccount destinationAccount, double amount) {
+public void transfer(BankAccount destinationAccount, double amount) {
         if (balance >= amount && amount > 0) {
             balance -= amount;
-            destinationAccount.deposit(amount);
+            destinationAccount.balance+=amount;
             transactions.add(new Transaction("Transfer to " + destinationAccount.getAccountNumber(), -amount));
             destinationAccount.getTransactions().add(new Transaction("Transfer from " + accountNumber, amount));
             System.out.println("Transfer successful");
@@ -111,6 +111,7 @@ class BankAccount {
             System.out.println("Insufficient funds for transfer");
         }
     }
+}
 }
 
 
