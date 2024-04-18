@@ -29,10 +29,6 @@ class BankAccount {
         return balance;
     }
     
-    public void setPassword(String password) {
-    	this.password = password;
-    }
-    
     public String getPassword() {
         return password;
     }
@@ -112,6 +108,6 @@ public void transfer(BankAccount destinationAccount, double amount) {
         }
     }
 }
-}
+
 
 

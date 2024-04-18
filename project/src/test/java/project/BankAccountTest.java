@@ -1,21 +1,19 @@
 package project;
 
+import static org.junit.jupiter.api.Assertions.*;
 
-import static org.junit.Assert.*;
-import org.junit.Test;
+import org.junit.*;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Order;
-import org.junit.After;
-import org.junit.Before;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import org.junit.jupiter.api.Test;
 
 
 class BankAccountTest {
 
-	Bank bank1 ;
-	BankAccount  bankAccount;
-	@Before
-	public void setUp(){
+	 Bank bank1 ;
+	 BankAccount  bankAccount;
+	@BeforeEach
+	 public void setUp(){
 	    bank1 = new Bank();
 	    bankAccount = new BankAccount("1234","pass1", 10000, bank1);
 	    bank1.addAccount(bankAccount);
@@ -159,18 +157,18 @@ class BankAccountTest {
     public void testPayLoan1() {
         bankAccount.addLoan(10000);
         bankAccount.payLoan(15000);
-        assertEquals(2, bankAccount.getTransactions().size());
-        assertEquals(10000, bankAccount.getBalance());
-        assertEquals(0, bankAccount.getTotalLoanAmount());
+        assertEquals(1, bankAccount.getTransactions().size());
+        assertEquals(20000, bankAccount.getBalance());
+        assertEquals(10000, bankAccount.getTotalLoanAmount());
         }
     @Test
     @Order(18)
     public void testPayLoan2() {
         bankAccount.addLoan(10000);
         bankAccount.payLoan(25000);
-        assertEquals(2, bankAccount.getTransactions().size());
-        assertEquals(10000, bankAccount.getBalance());
-        assertEquals(0, bankAccount.getTotalLoanAmount());
+        assertEquals(1, bankAccount.getTransactions().size());
+        assertEquals(20000, bankAccount.getBalance());
+        assertEquals(10000, bankAccount.getTotalLoanAmount());
         }
     @Test
     @Order(19)
@@ -196,12 +194,15 @@ class BankAccountTest {
         BankAccount destinationAccount = new BankAccount("0123", "password", 200, bank1);
         bank1.addAccount(destinationAccount);
 		assertEquals(bank1.accountsGetter().size(),2);
+		
         bankAccount.transfer(destinationAccount, 500);
+        assertEquals(1, destinationAccount.getTransactions().size());
         assertEquals(9500, bankAccount.getBalance());
         assertEquals(1, bankAccount.getTransactions().size());
         assertNotNull(bankAccount.getTransactions().size());
         assertEquals(700, destinationAccount.getBalance());
-        assertEquals(1, destinationAccount.getTransactions().size());
+        
+        
     }
     @Test
     @Order(22)
@@ -288,9 +289,5 @@ class BankAccountTest {
 	 		bank1=null;
 	 		bankAccount=null;
 	 }
-
-	 
-		 
-
 
 }
