@@ -57,16 +57,19 @@ class Bank {
         return findAccount(accountNumber) != null;
     }
 
-    public void issueLoan(String accountNumber, double amount) {
-    	if(findLoan(accountNumber)!=null) {
-    		
-    		System.out.println("You have already requested a loan");
-    	}else {
-    		Loan loan = new Loan(accountNumber,amount);
-            waitingLoans.add(loan);
-            System.out.println("Loan is pending");
-    	}
-        	
+      public void issueLoan(String accountNumber, double amount) {
+	    	if(findLoan(accountNumber)!=null) {
+	    		
+	    		System.out.println("You have already requested a loan");
+	    	}else {
+	    		if(amount > 0 ) {
+	    			Loan loan = new Loan(accountNumber,amount);
+		            waitingLoans.add(loan);
+		            System.out.println("Loan is pending");
+	    		}else {
+	    			System.out.println("error,you have entered invalid amount");
+	    		}
+	    	}
     }
     
     public void LoanConfirmation(boolean status, String accountNumber) {
