@@ -24,12 +24,13 @@ class Bank {
     	return this.accounts;
     }
     
-    public String addAccount(BankAccount account) {
+    public void addAccount(BankAccount account) {
         if (!isAccountNumberTaken(account.getAccountNumber())) {
             accounts.add(account);
-            return "Account added successfully.";
+            System.out.println("Account added successfully."); 
         } else {
-            return "Account number is already taken.";
+        	System.out.println("Account number is already taken.");
+            
         }
     }
 

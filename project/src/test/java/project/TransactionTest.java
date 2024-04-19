@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 class TransactionTest {
 
-	Transaction t1 = new Transaction("withdrawl",1000);
+	Transaction t1 = new Transaction("withdrawl",1000.0);
 	@Test
 	void testAddTransaction() {
 		assertNotNull(t1);
@@ -17,7 +17,7 @@ class TransactionTest {
 	}
 	@Test
 	void getAmountTest() {
-		assertEquals(t1.getAmount(),2000.0);	
+		assertEquals(1000.0,t1.getAmount());	
 	}
 
 }

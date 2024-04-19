@@ -10,7 +10,7 @@ class Loan {
     }
 
     public String getAccountNumber() {
-        return accountNumber;
+        return this.accountNumber;
     }
 
     public double getAmount() {

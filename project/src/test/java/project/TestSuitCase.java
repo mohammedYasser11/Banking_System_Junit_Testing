@@ -20,6 +20,5 @@ import org.junit.runners.Suite;
 	TransactionTest.class
 })
 public class TestSuitCase {
-
 	//
 }

@@ -3,10 +3,13 @@ package project;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.*;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
-
+import java.util.Random;
 
 class BankAccountTest {
 
@@ -71,6 +74,18 @@ class BankAccountTest {
         assertEquals(10000.0, bankAccount.getBalance());
         assertEquals(0, bankAccount.getTransactions().size());
     }
+	
+	@RepeatedTest(5) // Repeats the test 5 times
+    public void testDepositWithDifferentAmounts() {
+        // Generate a random deposit amount between -100 and 0
+        double depositAmount = -new Random().nextInt(100); // Negative random value
+
+        // When
+        bankAccount.deposit(depositAmount);
+
+        // Then
+        assertEquals(10000, bankAccount.getBalance());
+	}
 	@Test
 	@Order(8)
 	public void testwithdraw1() {
@@ -284,7 +299,7 @@ class BankAccountTest {
         assertEquals(0, destinationAccount.getTransactions().size());
     }
     
-	 	@After
+	 	@AfterEach
 	 	public void after() {
 	 		bank1=null;
 	 		bankAccount=null;
