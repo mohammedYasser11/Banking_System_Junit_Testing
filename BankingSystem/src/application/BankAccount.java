@@ -78,34 +78,23 @@ class BankAccount {
     }
 
     public void payLoan(double amount) {
-    	if (totalLoanAmount!=0) {
-    		if(balance>=amount && amount > 0){
-    		
-            if (amount <= totalLoanAmount) {
-                balance -= amount;
-                transactions.add(new Transaction("Loan Repayment", -amount));
-                totalLoanAmount -= amount;
-                System.out.println("Loan repayment successful");
-                loans.clear();
-                 loans.add(new Loan(accountNumber, totalLoanAmount));
-                bank.updateAllLoans(accountNumber, loans);
-            } else {
-                balance -= totalLoanAmount;
-                transactions.add(new Transaction("Loan Repayment", -totalLoanAmount));
-                totalLoanAmount =0;
-                System.out.println("Loan repayment successful");
-                loans.clear();
-                 loans.add(new Loan(accountNumber, totalLoanAmount));
-                bank.updateAllLoans(accountNumber, loans);
-            }
-        }else {
-            System.out.println("Your account balance is low! \nor Your Entered amount is Invalid!" );
-        }
-    	}
-    	else {
-    		System.out.print("You have no loans");
-    	}
-    }
+        if(balance>=amount){
+           if(amount > 0 && amount <=totalLoanAmount ){
+               balance -= amount;
+               transactions.add(new Transaction("Loan Repayment", -amount));
+               totalLoanAmount -= amount;
+               System.out.println("Loan repayment successful");
+               loans.clear();
+               loans.add(new Loan(accountNumber, totalLoanAmount));
+               bank.updateAllLoans(accountNumber, loans);
+           }else{
+               System.out.println("Your have entered invalid amount! " );
+           }
+
+       }else {
+           System.out.println("Your account balance is low! " );
+       }
+   }
 
     public void transfer(BankAccount destinationAccount, double amount) {
         if (balance >= amount && amount > 0) {

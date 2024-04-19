@@ -1,0 +1,21 @@
+.welcome-label {
+    -fx-text-fill: #3a7bd5;
+}
+
+.field-label {
+    -fx-text-fill: #000000;
+}
+
+.text-field {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #000000;
+}
+
+.submit-button {
+    -fx-background-color: #3a7bd5;
+    -fx-text-fill: #ffffff;
+}
+
+.error-label {
+    -fx-text-fill: #ff0000;
+}

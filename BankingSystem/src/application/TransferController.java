@@ -45,7 +45,7 @@ public class TransferController {
         if (sourceAccount != null && destinationAccount != null) {
             try {
                 double amount = Double.parseDouble(transferAmount);
-                if (sourceAccount.getBalance() >= amount && amount>=0) {
+                if (sourceAccount.getBalance() >= amount && amount>0) {
                 	sourceAccount.transfer(destinationAccount, amount);
                     errorLabel.setText("Transfer Successfully");
                     errorLabel.setStyle("-fx-text-fill: green; -fx-alignment: center;");

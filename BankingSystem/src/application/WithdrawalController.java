@@ -35,7 +35,7 @@ public class WithdrawalController {
                     return;
                 }
                 double amount = Double.parseDouble(amountText);
-                if (account.getBalance() >= amount && amount>=0) {
+                if (account.getBalance() >= amount && amount>0) {
                     account.withdraw(amount);
                     errorLabel.setText("Withdrawl Successfully");
                     errorLabel.setStyle("-fx-text-fill: green; -fx-alignment: center;");
