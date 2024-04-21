@@ -97,7 +97,8 @@ class BankAccount {
    }
 
     public void transfer(BankAccount destinationAccount, double amount) {
-        if (balance >= amount && amount > 0) {
+    	if (accountNumber!=destinationAccount.getAccountNumber() ) {
+    		if (balance >= amount && amount > 0) {
             balance -= amount;
             destinationAccount.balance+=amount;
             transactions.add(new Transaction("Transfer to " + destinationAccount.getAccountNumber(), -amount));
@@ -107,4 +108,10 @@ class BankAccount {
             System.out.println("Insufficient funds for transfer");
         }
     }
+    	else {
+    		System.out.println("Inavalid account number");
+    	}
+    	}
+    
+        
 }

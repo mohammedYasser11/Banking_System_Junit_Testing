@@ -26,7 +26,7 @@ public class PayLoanController {
     private Label totalLoanLabel;
 
     @FXML
-    public void submitLoanPayment() {
+    public void submitLoanPayment(ActionEvent event) throws IOException {
         BankAccount account = UserSession.getInstance().getCurrentAccount();
         
         if (account != null) {
@@ -35,28 +35,30 @@ public class PayLoanController {
            	 
             	if (amountText == null || amountText.isEmpty()) {
             		errorLabel.setText("Please enter the amount.");
-            		errorLabel.setStyle("-fx-text-fill: red;");
+            		errorLabel.setStyle("-fx-text-fill: red; -fx-alignment: center; -fx-font-weight: bold;");
                     return;
                 }
             	
                 double amount = Double.parseDouble(loanPaymentField.getText());
-                if (amount>0 && account.getTotalLoanAmount()!=0) {
+                if (amount>0 && account.getTotalLoanAmount()!=0 && amount<=account.getTotalLoanAmount()) {
                 	account.payLoan(amount);
-                    errorLabel.setText("Loan payment successfully");
-                    errorLabel.setStyle("-fx-text-fill: green;");
+                	 Parent root = FXMLLoader.load(getClass().getResource("PayLoan.fxml"));
+                     stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+                     scene = new Scene(root);
+                     stage.setScene(scene);
+                     stage.show();
                 }
                 else {
                 	errorLabel.setText("Inavalid Payment Amount");
-                	errorLabel.setStyle("-fx-text-fill: red;");
-                }
+                	errorLabel.setStyle("-fx-text-fill: red; -fx-alignment: center; -fx-font-weight: bold;");
+                	}
             } catch (NumberFormatException e) {
                 errorLabel.setText("Invalid payment amount");
-                errorLabel.setStyle("-fx-text-fill: red;");
-            }
+                errorLabel.setStyle("-fx-text-fill: red; -fx-alignment: center; -fx-font-weight: bold;");            }
         } else {
             errorLabel.setText("Account not found");
-            errorLabel.setStyle("-fx-text-fill: red;");
-        }
+            errorLabel.setStyle("-fx-text-fill: red; -fx-alignment: center; -fx-font-weight: bold;");        }
+       
     }
     
     public void initialize() {

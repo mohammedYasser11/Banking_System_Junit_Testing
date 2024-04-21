@@ -43,21 +43,32 @@ public class TransferController {
 	    }
         
         if (sourceAccount != null && destinationAccount != null) {
-            try {
+            if (sourceAccount!=destinationAccount) {
+            	try {
+            	
                 double amount = Double.parseDouble(transferAmount);
                 if (sourceAccount.getBalance() >= amount && amount>0) {
                 	sourceAccount.transfer(destinationAccount, amount);
                     errorLabel.setText("Transfer Successfully");
                     errorLabel.setStyle("-fx-text-fill: green; -fx-alignment: center;");
-                } else {
+                } else if (sourceAccount.getBalance() < amount) {
                     errorLabel.setText("Insufficient balance");
+                    errorLabel.setStyle("-fx-text-fill: red; -fx-alignment: center;");
+                } else {
+                	errorLabel.setText("Invalid amount");
                     errorLabel.setStyle("-fx-text-fill: red; -fx-alignment: center;");
                 }
             } catch (NumberFormatException e) {
                 errorLabel.setText("Invalid transfer amount");
                 errorLabel.setStyle("-fx-text-fill: red; -fx-alignment: center;");
             }
-        } else {
+        } 
+            else {
+            	errorLabel.setText("Invalid account number");
+                errorLabel.setStyle("-fx-text-fill: red; -fx-alignment: center;");
+            }
+            }
+        	else {
             errorLabel.setText("Either source account or destination account \n doesn't exist");
             
             errorLabel.setStyle("-fx-text-fill: red; -fx-alignment: center;");

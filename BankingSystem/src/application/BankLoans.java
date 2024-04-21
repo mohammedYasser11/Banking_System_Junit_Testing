@@ -29,7 +29,7 @@ public class BankLoans {
         ObservableList<String> Loan = FXCollections.observableArrayList();
         for (String x : bank.getAllLoans().keySet()) {
         	for (Loan loan : bank.getAllLoans().get(x)) {
-        	Loan.add(loan.getAccountNumber() + ": " + loan.getAmount());
+        	Loan.add("Account Number: "+loan.getAccountNumber() + ", "+"Loan Amount: " + loan.getAmount());
              }
         LoanListView.setItems(Loan);
         }

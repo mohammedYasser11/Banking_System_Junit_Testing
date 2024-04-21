@@ -39,12 +39,15 @@ public class WithdrawalController {
                     account.withdraw(amount);
                     errorLabel.setText("Withdrawl Successfully");
                     errorLabel.setStyle("-fx-text-fill: green; -fx-alignment: center;");
-                } else {
+                } else if(account.getBalance() < amount) {
                 	errorLabel.setText("Insufficient balance");
+                	errorLabel.setStyle("-fx-text-fill: red; -fx-alignment: center;");
+                } else {
+                	errorLabel.setText("Invalid Amount");
                 	errorLabel.setStyle("-fx-text-fill: red; -fx-alignment: center;");
                 }
             } catch (NumberFormatException e) {
-                errorLabel.setText("Invalid withdrawal amount");
+                errorLabel.setText("Invalid Amount");
                 errorLabel.setStyle("-fx-text-fill: red; -fx-alignment: center;");
             }
         } else {

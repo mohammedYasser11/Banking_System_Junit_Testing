@@ -31,7 +31,7 @@ public class LoanListController {
         ObservableList<String> Loan = FXCollections.observableArrayList();
 
         for (Loan loan : account.getLoans()) {
-        	Loan.add(loan.getAccountNumber() + ": " + loan.getAmount());
+        	Loan.add("Loan Amount: " + loan.getAmount());
         }
 
         LoanListView.setItems(Loan);

@@ -41,11 +41,11 @@ public class RequestLoanController {
     	 
     	if (amountText == null || amountText.isEmpty()) {
             statusLabel.setText("Please fill all the fields.");
-            statusLabel.setStyle("-fx-text-fill: red; -fx-alignment: center;");
+            statusLabel.setStyle("-fx-text-fill: red; -fx-alignment: center; -fx-font-weight: bold;");
             return;
         }
-    	
-        double amount = Double.parseDouble(amountField.getText());
+    	try {
+    		double amount = Double.parseDouble(amountField.getText());
         BankAccount account = UserSession.getInstance().getCurrentAccount();
         String accountNumber = account.getAccountNumber();
 
@@ -53,16 +53,21 @@ public class RequestLoanController {
             Loan existingLoan = bank.findLoan(accountNumber);
             if (existingLoan != null) {
                 statusLabel.setText("You have already requested a loan");
-                statusLabel.setStyle("-fx-text-fill: red; -fx-alignment: center;");
+                statusLabel.setStyle("-fx-text-fill: red; -fx-alignment: center; -fx-font-weight: bold;");
             } else {
                 bank.issueLoan(accountNumber, amount); 
                 statusLabel.setText("Loan request submitted.");
-                statusLabel.setStyle("-fx-text-fill: green; -fx-alignment: center;");
+                statusLabel.setStyle("-fx-text-fill: green; -fx-alignment: center; -fx-font-weight: bold;");
             }
         } else {
             statusLabel.setText("Invalid amount.");
-            statusLabel.setStyle("-fx-text-fill: red; -fx-alignment: center;");
+            statusLabel.setStyle("-fx-text-fill: red; -fx-alignment: center; -fx-font-weight: bold;");
         }
+    	} catch (NumberFormatException e) {
+    		statusLabel.setText("Invalid amount");
+            statusLabel.setStyle("-fx-text-fill: red; -fx-alignment: center; -fx-font-weight: bold;");
+        }
+        
     }
     
     public void SwitchToLoan(ActionEvent event) throws IOException {

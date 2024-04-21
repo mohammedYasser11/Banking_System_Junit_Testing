@@ -13,7 +13,7 @@
             <Font name="System Bold Italic" size="30.0" />
          </font>
       </Label>
-      <ListView fx:id="loanRequestListView" layoutX="121.0" layoutY="101.0" onEditStart="#initialize" prefHeight="238.0" prefWidth="200.0" />
+      <ListView fx:id="loanRequestListView" layoutX="81.0" layoutY="101.0" onEditStart="#initialize" prefHeight="227.0" prefWidth="283.0" />
       <Button layoutX="376.0" layoutY="111.0" mnemonicParsing="false" onAction="#acceptLoanRequest" text="Accept">
          <font>
             <Font size="15.0" />
@@ -29,5 +29,10 @@
             <Font size="15.0" />
          </font>
       </Button>
+      <Label fx:id="errorLabel" layoutX="102.0" layoutY="355.0" prefHeight="17.0" prefWidth="346.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

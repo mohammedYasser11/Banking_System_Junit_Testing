@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -25,6 +26,9 @@ public class WaitingLoanController {
 
     @FXML
     private Button rejectButton;
+    
+    @FXML
+    private Label errorLabel;
 
     private Stage stage;
     private Scene scene;
@@ -41,17 +45,10 @@ public class WaitingLoanController {
         ObservableList<String> loanRequests = FXCollections.observableArrayList();
         if (bank.waitingLoansGetter()!=null) {
         	for (Loan loan : bank.waitingLoansGetter()) {
-            loanRequests.add(loan.getAccountNumber() + ": " + loan.getAmount());
+            loanRequests.add("Account Number: "+loan.getAccountNumber() + ", " +"Loan Amount: "+ loan.getAmount());
         }
         	loanRequestListView.setItems(loanRequests);
         }
-        else {
-        	
-        	
-        }
-        
-
-        
     }
 
     public List<Loan> waitingLoansGetter(){
@@ -64,12 +61,14 @@ public class WaitingLoanController {
         
         if (selectedLoanRequest != null) {
         	String[] parts = selectedLoanRequest.split(":");
-            String number = parts[0].trim();
+        	String number = parts[1].trim().split(",")[0].trim();
         	bank.LoanConfirmation(true, number);
             loanRequestListView.getItems().remove(selectedLoanRequest);
         }
         else {
-            System.out.println("No loan request selected.");
+        	System.out.println("No loan request selected");
+            errorLabel.setText("No loan request selected");
+    		errorLabel.setStyle("-fx-text-fill: red; -fx-alignment: center;");
         }
     }
 
@@ -79,12 +78,14 @@ public class WaitingLoanController {
         
         if (selectedLoanRequest != null) {
         	String[] parts = selectedLoanRequest.split(":");
-            String number = parts[0].trim();
+        	String number = parts[1].trim().split(",")[0].trim();
         	bank.LoanConfirmation(false, number);
             loanRequestListView.getItems().remove(selectedLoanRequest);
         }
         else {
-            System.out.println("No loan request selected.");
+            System.out.println("No loan request selected");
+            errorLabel.setText("No loan request selected");
+    		errorLabel.setStyle("-fx-text-fill: red; -fx-alignment: center;");
         }
     }
 
