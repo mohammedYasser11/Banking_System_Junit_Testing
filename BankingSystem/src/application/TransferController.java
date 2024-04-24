@@ -69,7 +69,7 @@ public class TransferController {
             }
             }
         	else {
-            errorLabel.setText("Either source account or destination account \n doesn't exist");
+            errorLabel.setText("destination account doesn't exist");
             
             errorLabel.setStyle("-fx-text-fill: red; -fx-alignment: center;");
         }

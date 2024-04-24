@@ -18,11 +18,6 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         try {
             BankSession.createInstance(bank);
-            BankAccount acc1 = new BankAccount("1","123",100,bank);
-            bank.addAccount(acc1);
-            
-            BankAccount acc2 = new BankAccount("2","321",1000,bank);
-            bank.addAccount(acc2);
             
             FXMLLoader Loader = new FXMLLoader(getClass().getResource("Bank.fxml"));
             Parent Root = Loader.load();

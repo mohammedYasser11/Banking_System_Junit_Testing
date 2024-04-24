@@ -42,25 +42,30 @@ public class AddAcountController {
 	        if (accountNumber == null || accountNumber.isEmpty() || 
 	            password == null || password.isEmpty() || 
 	            balanceText == null || balanceText.isEmpty()) {
-	            errorlabel.setText("Please fill all the fields.");
+	            errorlabel.setText("Please fill all the fields");
 	            errorlabel.setStyle("-fx-text-fill: red; -fx-alignment: center;");
 	            return;
 	        }
+	        
+	        try {
+	            double balance = Double.parseDouble(balanceText);
 
-	        double balance = Double.parseDouble(balanceText);
-
-	        if (balance >= 0) {
-	            if (!bank.isAccountNumberTaken(accountNumber, password)) {
-	                bank.addAccount(new BankAccount(accountNumber, password, balance, bank));
-	                errorlabel.setText("Account added successfully.");
-	                errorlabel.setStyle("-fx-text-fill: green; -fx-alignment: center;");
+	            if (balance >= 0) {
+	                if (!bank.isAccountNumberTaken(accountNumber, password)) {
+	                    bank.addAccount(new BankAccount(accountNumber, password, balance, bank));
+	                    errorlabel.setText("Account added successfully");
+	                    errorlabel.setStyle("-fx-text-fill: green; -fx-alignment: center;");
+	                } else {
+	                    errorlabel.setText("Account Already Taken");
+	                    errorlabel.setStyle("-fx-text-fill: red; -fx-alignment: center;");
+	                }
 	            } else {
-	            	errorlabel.setText("Account Already Taken.");
-	            	errorlabel.setStyle("-fx-text-fill: red; -fx-alignment: center;");
+	                errorlabel.setText("Please enter a valid balance");
+	                errorlabel.setStyle("-fx-text-fill: red; -fx-alignment: center;");
 	            }
-	        } else {
-	        	errorlabel.setText("Please enter a valid balance.");
-	        	errorlabel.setStyle("-fx-text-fill: red; -fx-alignment: center;");
+	        } catch (NumberFormatException e) {
+	            errorlabel.setText("Please enter a valid amount");
+	            errorlabel.setStyle("-fx-text-fill: red; -fx-alignment: center;");
 	        }
 	    }
 

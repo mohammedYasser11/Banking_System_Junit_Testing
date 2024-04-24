@@ -17,7 +17,7 @@
             <Font size="20.0" />
          </font>
       </Button>
-      <Button layoutX="59.0" layoutY="196.0" mnemonicParsing="false" onAction="#SwitchToWithsrawl" prefHeight="44.0" prefWidth="120.0" text="Withdrawl">
+      <Button layoutX="59.0" layoutY="196.0" mnemonicParsing="false" onAction="#SwitchToWithsrawl" prefHeight="44.0" prefWidth="120.0" text="Withdraw">
          <font>
             <Font size="20.0" />
          </font>
