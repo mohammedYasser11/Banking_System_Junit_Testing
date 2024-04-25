@@ -66,7 +66,6 @@ public class WaitingLoanController {
             loanRequestListView.getItems().remove(selectedLoanRequest);
         }
         else {
-        	System.out.println("No loan request selected");
             errorLabel.setText("No loan request selected");
     		errorLabel.setStyle("-fx-text-fill: red; -fx-alignment: center;");
         }
@@ -83,7 +82,6 @@ public class WaitingLoanController {
             loanRequestListView.getItems().remove(selectedLoanRequest);
         }
         else {
-            System.out.println("No loan request selected");
             errorLabel.setText("No loan request selected");
     		errorLabel.setStyle("-fx-text-fill: red; -fx-alignment: center;");
         }

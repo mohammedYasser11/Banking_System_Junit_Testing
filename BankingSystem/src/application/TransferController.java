@@ -32,7 +32,6 @@ public class TransferController {
         String destinationAccountNumber = destinationAccountNumberField.getText();
         BankAccount sourceAccount = UserSession.getInstance().getCurrentAccount();
         BankAccount destinationAccount = bank.findAccount(destinationAccountNumber);
-        System.out.print(bank.findAccount(destinationAccountNumber));
         
         if (transferAmount == null || transferAmount.isEmpty() || 
     			destinationAccountNumber == null || destinationAccountNumber.isEmpty())
