@@ -17,7 +17,8 @@ import org.junit.runners.Suite;
 	LoanTest.class,
 	BankAccountTest.class,
 	BankTest.class,
-	TransactionTest.class
+	TransactionTest.class,
+	AccountCredentialsTest.class
 })
 public class TestSuitCase {
 	//

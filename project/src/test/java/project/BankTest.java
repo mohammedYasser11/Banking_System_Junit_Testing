@@ -39,9 +39,9 @@ class BankTest {
 		assertNotEquals("U", b1.LoginCheacker("3", "45"));
 		assertNotEquals("A", b1.LoginCheacker("3", "45"));
 		b1.addAccount(ba3);
-	        assertEquals("U", b1.LoginCheacker("3", "45"));
-	        assertNotEquals("A", b1.LoginCheacker("3", "45"));
-	        assertEquals(ba3.getPassword(),"45");
+        assertEquals("U", b1.LoginCheacker("3", "45"));
+        assertNotEquals("A", b1.LoginCheacker("3", "45"));
+        assertEquals(ba3.getPassword(),"45");
     }
 	@Test
 	@Order(2)
